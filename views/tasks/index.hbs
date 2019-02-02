@@ -1,0 +1,10 @@
+<ul>
+    {{#each tasks}}
+    <li>{{this}}</li>
+    <a href="/tasks/show/{{this._id}}">Show task</a>
+    <a href="/tasks/edit/{{this._id}}">Edit task</a>
+    <form action="/tasks/delete/{{this._id}}" method="post">
+        <button type="submit">DELETE TASK</button>
+    </form>
+    {{/each}}
+</ul>

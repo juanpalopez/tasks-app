@@ -1,0 +1,7 @@
+<a href="/tasks">Show all tasks</a>
+{{task}}
+
+<a href="/tasks/edit/{{task._id}}">Edit Task</a>
+<form action="/tasks/delete/{{task._id}}" method="post">
+    <button type="submit">DELETE TASK</button>
+</form>
