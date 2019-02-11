@@ -35,7 +35,7 @@ taskController.create = function(req, res) {
 // Save new task
 taskController.save = function(req, res) {
   const task = new Task(req.body);
-
+  console.log(req.body);
   task.save(function(err) {
     if (err) {
       console.log(`Error: ${err}`);

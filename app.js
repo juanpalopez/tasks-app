@@ -29,18 +29,18 @@ app.set("view engine", "hbs");
 
 var hbs = require("hbs");
 
-hbs.registerHelper("formatDate", function(fecha) {
-  let year = fecha.getFullYear();
+hbs.registerHelper("formatDate", function(taskDate) {
+  let year = taskDate.getFullYear();
   let month =
-    `${fecha.getMonth() + 1}`.length < 2
-      ? `0${fecha.getMonth() + 1}`
-      : `${fecha.getMonth() + 1}`;
+    `${taskDate.getMonth() + 1}`.length < 2
+      ? `0${taskDate.getMonth() + 1}`
+      : `${taskDate.getMonth() + 1}`;
   let day =
-    `${fecha.getDate() + 1}`.length < 2
-      ? `0${fecha.getDate()}`
-      : `${fecha.getDate()}`;
+    `${taskDate.getDate() + 1}`.length < 2
+      ? `0${taskDate.getDate()}`
+      : `${taskDate.getDate()}`;
   return `${year}-${month}-${day}`;
-  // return new Date(fecha).toLocaleDateString();
+  // return new Date(taskDate).toLocaleDateString();
 });
 
 app.use(logger("dev"));

@@ -1,10 +1,101 @@
-<ul>
-    {{#each tasks}}
-    <li>{{this}}</li>
-    <a href="/tasks/show/{{this._id}}">Show task</a>
-    <a href="/tasks/edit/{{this._id}}">Edit task</a>
-    <form action="/tasks/delete/{{this._id}}" method="post">
-        <button type="submit">DELETE TASK</button>
-    </form>
-    {{/each}}
-</ul>
+<div class="container">
+    <div class="row justify-content-center">
+        <h1>Create your TODO list</h1>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="card">
+        <div class="card-body text-center">
+            <form onsubmit="return false">
+                <div class="form-row">
+                    <div class="col-md-8 ">
+                        <input id="title" type="text" class="form-control" placeholder="Write your task here">
+                    </div>
+                    <div class="col-md-2">
+                        <input id="datepicker" class="form-control" type="text" readonly placeholder="Due Date"
+                            data-date-format="mm/dd/yyyy" />
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary mb-2" onclick="createTask()">Create task</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="row">
+        {{#each tasks}}
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="checkbox" aria-label="Checkbox for following text input">
+                </div>
+            </div>
+            <h1 class="form-control">{{this.title}}</h1>
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">{{formatDate this.completionDate}}</span>
+            </div>
+            <div class="input-group-append">
+                <div class="input-group-text bg-danger" onclick="deleteTask('{{this._id}}')">
+                    <i class="fas fa-trash-alt text-white"></i>
+                </div>
+            </div>
+
+        </div>
+        {{/each}}
+    </div>
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'yyyy/mm/dd'
+        });
+    </script>
+    <script>
+
+        function createTask() {
+            const title = document.querySelector('#title').value
+            let completionDate = document.querySelector('#datepicker').value
+            let splitDate = completionDate.split('/')
+            let setDate = Date.parse(completionDate)
+            let today = new Date()
+            today.setHours(0, 0, 0, 0)
+
+            //console.log(
+            //    completionDate, setDate >= Date.parse(today)
+            //)
+            //console.log(new Date())
+            if (setDate < Date.parse(today)) {
+                console.log('verify date')
+            } else {
+                console.log({
+                    title: title,
+                    completionDate: new Date(completionDate)
+                })
+                axios.post('http://localhost:3000/tasks/save', {
+                    title: title,
+                    completionDate: new Date(completionDate),
+                    status: false
+                })
+
+                //window.location.reload();
+                console.log('task created')
+            }
+
+        }
+
+        function deleteTask(taskId) {
+            axios.post(`http://localhost:3000/tasks/delete/${taskId}`)
+            window.location.reload();
+            console.log(`${taskId} deleted`)
+        }
+
+
+    </script>
