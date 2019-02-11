@@ -9,8 +9,8 @@ So far the app is working, you can create a todo list with a local mongo DB.
 
 # Next Features:
 
-- I would be working a creating a cloud DB, so anyone can use the app.
-- Also and creating users management section, so that each user can have a private list. (Right there is only one list).
+- I would be working in creating a cloud DB, so anyone can use the app.
+- Also and creating users management section, so that each user can have a private list. (Right now there is only one list).
 - I will create an API on top the mongodb
 - I will add React for the frontend.
 
